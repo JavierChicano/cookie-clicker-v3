@@ -18,8 +18,8 @@ const config: Config = {
         principal: 'var(--principal)',
         principalOscurecido: 'var(--principalOcurecido)',
         secundario: 'var(--secundario)',
-        terciario: 'var(terciario)',
-        seleccion: 'var(seleccion)',
+        terciario: 'var(--terciario)',
+        seleccion: 'var(--seleccion)',
       }
     },
   },
