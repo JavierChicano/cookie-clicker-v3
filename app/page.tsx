@@ -1,7 +1,8 @@
 import Image from "next/image";
+import coin1 from "@/media/coin1.png"
 export default function Home() {
   return (
-    <main className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,700px)] gap-y-10 relative">
+    <main className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,700px)] gap-y-10 relative bg-">
       {/* <div
         id="mostrarCandado"
         className="flex flex-col justify-center absolute  rounded-r-lg w-full h-[36px] text-center items-center z-2 col-span-2 "
@@ -23,9 +24,9 @@ export default function Home() {
       {/* Display monedas */}
       <section className="flex items-center border-r border-b border-solid p-[8px] ">
         <img
-          src="@public/nivel 1/coin1.png"
+          src={coin1.src}
           alt={"coin"}
-          className="relative h-[130px] cursor-pointer active:scale-120"
+          className="relative h-[130px] cursor-pointer active:scale-125"
         />
 
         <article
@@ -47,9 +48,9 @@ export default function Home() {
               <p id="levelCountArma">info nv</p>
               <div className="relative flex flex-row justify-center items-center p-[8px]">
                 <img
-                  src="@public/nivel 1/coin1.png"
+                  src={coin1.src}
                   className="monedaPrecio w-[20px]"
-                  alt="moneda"
+                  alt={"moneda"}
                 ></img>
                 <span id="costeArma mt-[-20px]">coste</span>
               </div>
@@ -65,7 +66,7 @@ export default function Home() {
               <p id="levelCountSoldado">info nv</p>
               <div className="relative flex flex-row justify-center items-center p-[8px]">
                 <img
-                  src="@public/nivel 1/coin1.png"
+                  src={coin1.src}
                   className="monedaPrecio w-[20px]"
                   alt="moneda"
                 ></img>

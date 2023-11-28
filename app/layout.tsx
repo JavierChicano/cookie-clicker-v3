@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -14,9 +15,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const estado = false
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(inter.className, "")}>
       <header className='rounded-r-md w-[600px]	 h-14 border-b border-solid border-white bg-amber-500'>
         <ul className='flex list-none m-0 p-0 h-full rounded-l-md'>
             <li className='flex flex-1 cursor-pointer h-full items-center justify-center rounded-tl-lg'>
