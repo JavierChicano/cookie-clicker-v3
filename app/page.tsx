@@ -1,6 +1,8 @@
 import Image from "next/image";
-import coin1 from "@/media/coin1.png"
+import coin1 from "@/media/coin1.png";
+import CajaMejora from "@/components/caja-mejoras";
 export default function Home() {
+  
   return (
     <main className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,700px)] gap-y-10 relative text-black">
       {/* <div
@@ -34,31 +36,24 @@ export default function Home() {
           className="flex flex-col items-center justify-center bg-opacity-50 bg-black h-[100px] w-[120px] rounded-lg ml-[20px] text-white"
         >
           <p className="text-lg mt-[-30px]">Monedas/s: </p>
-          <p >Tier: </p>
+          <p>Tier: </p>
         </article>
       </section>
       {/* Display mejoras */}
       <section className="rounded-r-lg p-[18px] border-b border-solid bg-principal">
-        <h2 className="mt-[-10px] text-xl">¡Mejora la produccion de monedas!</h2>
+        <h2 className="mt-[-10px] text-xl">
+          ¡Mejora la produccion de monedas!
+        </h2>
         <aside className="flex flex-wrap mt-[-2px]">
           {/* Primera caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Arma</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-            <div className="hidden bg-opacity-70 bg-black p-[10px] rounded-md mt-[-18px] text-white">
-              Aumenta la eficiencia de tu click +1
-            </div>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Armas",
+              nivel: 0,
+              coste: 0,
+              descripcion: "Test",
+            }}
+          />
           {/* Segunda caja */}
           <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
             <h1 className="font-semibold mt-1">Soldado</h1>
