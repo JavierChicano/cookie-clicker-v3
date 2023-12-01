@@ -21,25 +21,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "bg-fondo box-border	cursor-crosshair p-4")}>
-      <header className='rounded-r-md w-full grid grid-cols-3	 h-14 items-center justify-center'>
+      <header className='rounded-r-md w-full grid grid-cols-[minmax(600px,600px)_minmax(00px,500px)_minmax(200px,1fr)] h-14 items-center justify-center'>
         <ul className='flex list-none m-0 p-0 h-full rounded-t-lg bg-principal border-b border-solid border-white'>
-            <li className='flex flex-1 cursor-pointer h-full items-center justify-center rounded-tl-lg '>
+            <li className='flex flex-[1] cursor-pointer h-full items-center justify-center rounded-tl-lg '>
                 <a href="index.html" className='"no-underline'>
                     <img src={coin1.src} alt="Moneda"
                     className='h-12'></img>
                 </a>
             </li>
-            <li className='flex flex-1 cursor-pointer h-full items-center justify-center'>
+            <li className='flex flex-[1] cursor-pointer h-full items-center justify-center'>
                 <a href="index.html">
                     Olimpo
                 </a>
             </li>
-            <li className='flex flex-1 cursor-pointer h-full items-center justify-center'>
+            <li className='flex flex-[1] cursor-pointer h-full items-center justify-center'>
                 <a href="estadisticas.html">
                 Estadisticas
                 </a>
             </li>
-            <li className=' flex flex-3 bg-seleccion rounded-tr-lg  text-lg items-center justify-center'>
+            <li className=' flex flex-[3] bg-seleccion rounded-tr-lg  text-lg items-center justify-center'>
               Monedas totales
             </li>
         </ul>
