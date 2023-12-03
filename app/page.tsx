@@ -1,6 +1,7 @@
 import Image from "next/image";
 import coin1 from "@/media/coin1.png";
 import CajaMejora from "@/components/caja-mejoras";
+import CajaMoneda from "@/components/caja-monedas";
 export default function Home() {
 
   return (
@@ -30,14 +31,13 @@ export default function Home() {
           alt={"coin"}
           className="relative h-[130px] cursor-pointer active:scale-125"
         />
-
-        <article
-          id="informacionMoneda1"
-          className="flex flex-col items-center justify-center bg-opacity-50 bg-black h-[100px] w-[120px] rounded-lg ml-[20px] text-white"
-        >
-          <p className="text-lg mt-[-30px]">Monedas/s: </p>
-          <p>Tier: </p>
-        </article>
+        <CajaMoneda
+          datos={{
+            monedasSegundo: 0,
+            tier: 1,
+          }}
+          />
+        
       </section>
       {/* Display mejoras */}
       <section className="rounded-r-lg p-[18px] border-b border-solid bg-principal">
