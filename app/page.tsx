@@ -2,7 +2,7 @@ import Image from "next/image";
 import coin1 from "@/media/coin1.png";
 import CajaMejora from "@/components/caja-mejoras";
 export default function Home() {
-  
+
   return (
     <main className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,700px)] gap-y-10 relative text-black">
       {/* <div
@@ -49,65 +49,38 @@ export default function Home() {
           <CajaMejora
             datos={{
               nombre: "Armas",
-              nivel: 0,
-              coste: 0,
-              descripcion: "Test",
+              nivel: 1,
+              coste: 10,
+              descripcion: "Aumenta el valor del click +1",
             }}
           />
           {/* Segunda caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Soldado</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-            <div className="hidden bg-opacity-70 bg-black p-[10px] rounded-md mt-[-18px] text-white">
-              Aumenta tu produccion de monedas por segundo en +1
-            </div>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Soldado",
+              nivel: 1,
+              coste: 40,
+              descripcion: "Aumenta tu produccion de monedas por segundo en +1",
+            }}
+          />
           {/* Tercera caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Sargento</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-            <div className="hidden bg-opacity-70 bg-black p-[10px] rounded-md mt-[-18px] text-white">
-              Aumenta tu produccion de monedas por segundo en +3
-            </div>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Sargento",
+              nivel: 1,
+              coste: 50,
+              descripcion: "Aumenta tu produccion de monedas por segundo en +3",
+            }}
+          />
           {/* Cuarta caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Capitán</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-            <div className="hidden bg-opacity-70 bg-black p-[10px] rounded-md mt-[-18px] text-white">
-              Aumenta tu produccion de monedas por segundo en +5
-            </div>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Capitán",
+              nivel: 1,
+              coste: 60,
+              descripcion: "Aumenta tu produccion de monedas por segundo en +4",
+            }}
+          />
         </aside>
       </section>
       {/* Display tienda */}
@@ -117,50 +90,32 @@ export default function Home() {
         </h3>
         <aside className="flex flex-wrap p-[10p] mt-[-2px]">
           {/* Primera caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">PowerUps</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "PowerUps",
+              nivel: 1,
+              coste: 40,
+              descripcion: "Añade un boost que hace a las habilidades mas eficientes",
+            }}
+          />
           {/* Segunda caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Talentos</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Talentos",
+              nivel: 1,
+              coste: 15,
+              descripcion: "Debloquea habilidades unicas de cada objeto",
+            }}
+          />
           {/* Tercera caja */}
-          <div className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario">
-            <h1 className="font-semibold mt-1">Reliquias</h1>
-            <section className="relative flex flex-col justify-center items-center mt-[-7px] h-[55px]">
-              <p>info nv</p>
-              <div className="flex flex-row justify-center items-center p-[8px] mt-[-10px]">
-                <img
-                  src={coin1.src}
-                  className="monedaPrecio w-5"
-                  alt={"moneda"}
-                ></img>
-                <span className="mt-[-2px]">coste</span>
-              </div>
-            </section>
-          </div>
+          <CajaMejora
+            datos={{
+              nombre: "Reliquias",
+              nivel: 1,
+              coste: 20,
+              descripcion: "Implementa pasivas unicas en cada nivel",
+            }}
+          />
         </aside>
       </section>
     </main>
