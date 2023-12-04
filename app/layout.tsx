@@ -6,6 +6,7 @@ import pregunta from "@/media/interrogacion.png"
 import coin1 from "@/media/coin1.png"
 import olimpo from "@/media/Olimpo.png"
 import stats from "@/media/estadisticas.png"
+import Link from 'next/link'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -13,6 +14,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'CoinClicker V3',
   description: 'Basado en el famoso juego Cookie Clicker',
+  icons: {
+    icon: "/public/favicon.ico"
+  }
 }
 
 export default function RootLayout({
@@ -26,10 +30,10 @@ export default function RootLayout({
       <header className='rounded-r-md w-full grid grid-cols-[minmax(600px,600px)_minmax(00px,500px)_minmax(200px,1fr)] h-14 items-center justify-center'>
         <ul className='flex list-none m-0 p-0 h-full rounded-t-lg bg-principal border-b border-solid border-white'>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center rounded-tl-lg '>
-                <a href="app/page.tsx">
+                <Link href="/">
                     <img src={coin1.src} alt="Moneda"
                     className='h-12'></img>
-                </a>
+                </Link>
             </li>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center'>
                 <a href="index.html">
