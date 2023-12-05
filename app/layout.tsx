@@ -7,6 +7,8 @@ import coin1 from "@/media/coin1.png"
 import olimpo from "@/media/Olimpo.png"
 import stats from "@/media/estadisticas.png"
 import Link from 'next/link'
+import CajaMostrarMonedas from "@/components/layout/caja-mostrarMonedas";
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -47,9 +49,9 @@ export default function RootLayout({
                     className='h-12'></img>
                 </a>
             </li>
-            <li className=' flex flex-[3] bg-seleccion rounded-tr-lg  text-lg items-center justify-center'>
-              Monedas totales
-            </li>
+            <CajaMostrarMonedas
+             
+            />
         </ul>
         <section className='flex flex-row items-center'>
           <div id="preguntas" className='h-10 w-10 flex items-center justify-center ml-3 bg-secundario rounded-full cursor-pointer hover:bg-seleccion hover:shadow-black'>
