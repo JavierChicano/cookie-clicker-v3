@@ -31,3 +31,26 @@ export const useMonedasTotales = create<ContadorMonedasType>()((set) => ({
   monedasTotales: 0,
   setMonedasTotales: (moneda: number) => set(() =>({monedasTotales: moneda})),
 }));
+
+//Estado para contar las monedas por segundo de esa fila en concreto
+type ContadorMonedasSegundoType = {
+  monedasSegundo: number;
+  setMonedasSegundoTotales: (by: number) => void;
+};
+
+export const useMonedasTotalesSegundo = create<ContadorMonedasSegundoType>()((set) => ({
+  monedasSegundo: 0,
+  setMonedasSegundoTotales: (moneda: number) => set(() =>({monedasSegundo: moneda})),
+}));
+
+//Estado para ver la informarcion de los objetos
+type VerInfoObjetos ={
+  verInfo: boolean;
+  setVerInfo: (by: boolean) => void;
+};
+
+export const useVerInfo = create<VerInfoObjetos>()((set) => ({
+  verInfo: false,
+  setVerInfo: (ver: boolean) => set(() =>({verInfo: ver}))
+}));
+

@@ -16,12 +16,12 @@ export default function Home() {
     //Hay que llamar a la funcion onclick dentro del componenete cajaCandado
     //fuentes de letras
     //Empezar con el estdo del contador de monedas (y tmb pasarselo al layout)
-    <main className="flex flex-col gap-y-10 text-black w-full h-full">
+    <main className="flex flex-col gap-y-10 text-black w-full h-full overflow-y-auto">
       {contenedorArray}
 
       <div
         id="mostrarCandado"
-        className="flex flex-col justify-center rounded-r-lg w-full text-center items-center bg-principalOscurecido h-full"
+        className="flex flex-col justify-center rounded-r-lg text-center items-center bg-principalOscurecido "
       >
         <img
           src={candado.src}

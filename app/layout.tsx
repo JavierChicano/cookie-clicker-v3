@@ -2,12 +2,12 @@ import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import pregunta from "@/media/interrogacion.png"
 import coin1 from "@/media/coin1.png"
 import olimpo from "@/media/Olimpo.png"
 import stats from "@/media/estadisticas.png"
 import Link from 'next/link'
 import CajaMostrarMonedas from "@/components/layout/caja-mostrarMonedas";
+import CajaVerInfo from '@/components/layout/caja-displayInfo'
 
 
 
@@ -20,15 +20,14 @@ export const metadata: Metadata = {
     icon: "/public/favicon.ico"
   }
 }
-
-export default function RootLayout({
+export default function RootLayout({  
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "bg-fondo box-border	cursor-crosshair p-4")}>
+      <body className={cn(inter.className, "bg-fondo box-border	cursor-crosshair p-4 w-screen h-screen overflow-hidden")}>
       <header className='rounded-r-md w-full grid grid-cols-[minmax(600px,600px)_minmax(00px,500px)_minmax(200px,1fr)] h-14 items-center justify-center'>
         <ul className='flex list-none m-0 p-0 h-full rounded-t-lg bg-principal border-b border-solid border-white'>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center rounded-tl-lg '>
@@ -38,10 +37,10 @@ export default function RootLayout({
                 </Link>
             </li>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center'>
-                <a href="index.html">
+                <Link href="/Olimpo/">
                   <img src={olimpo.src} alt="olimpo"
                     className='h-12'></img>
-                </a>
+                </Link>
             </li>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center'>
                 <a href="estadisticas.html">
@@ -50,13 +49,11 @@ export default function RootLayout({
                 </a>
             </li>
             <CajaMostrarMonedas
-             
             />
         </ul>
         <section className='flex flex-row items-center'>
-          <div id="preguntas" className='h-10 w-10 flex items-center justify-center ml-3 bg-secundario rounded-full cursor-pointer hover:bg-seleccion hover:shadow-black'>
-              <img src={pregunta.src} alt="?"></img>
-          </div>
+          <CajaVerInfo
+          />
           <h1 className='ml-10 text-3xl'>Conviertete en millonario!</h1>
         </section>
         <section className='flex flex-row items-center justify-end mr-10'>
