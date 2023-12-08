@@ -17,7 +17,7 @@ export default function Home() {
     //fuentes de letras
     //Empezar con el estdo del contador de monedas (y tmb pasarselo al layout)
     
-    <main className="flex flex-col gap-y-10 mb-10 text-black hide-scrollbar ">
+    <main className="flex flex-col gap-y-10 mb-10 text-black">
       {contenedorArray}
 
       <div

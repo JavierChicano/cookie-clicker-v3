@@ -19,14 +19,14 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { monedasTotales, setMonedasTotales } = useMonedasTotales();
   const { verInfo, setVerInfo } = useVerInfo();
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-        setMonedasTotales(monedasTotales + 1);
-    }, 1000);
+//   useEffect(() => {
+//     const intervalId = setInterval(() => {
+//         setMonedasTotales(monedasTotales + 1);
+//     }, 1000);
 
-    // Limpiar el intervalo cuando el componente se desmonta
-    return () => clearInterval(intervalId);
-}, []);
+//     // Limpiar el intervalo cuando el componente se desmonta
+//     return () => clearInterval(intervalId);
+// }, []);
 
   // let interval: NodeJS.Timeout;
   // const actualizarMonedas = () => {

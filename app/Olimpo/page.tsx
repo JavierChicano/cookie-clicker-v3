@@ -8,9 +8,9 @@ import dios4 from "@/media/dioses/dios4.png";
 export default function Page() {
   
   return (
-    <main className="flex flex-col h-full overflow-y-auto">
+    <main className="flex flex-col">
       {/* Primera fila */}
-      <article className="grid grid-cols-3 w-full h-full gap-8  mt-[-1px] rounded-bl-full rounded-tr-full border border-solid border-white justify-items-center bg-principal">
+      <article className="grid grid-cols-3 gap-8  mt-[-1px] rounded-bl-full rounded-tr-full border border-solid border-white justify-items-center bg-principal">
         <SeccionDescripcion
           datos={{
             nombre: "Zeus",

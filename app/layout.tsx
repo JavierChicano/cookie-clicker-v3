@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "bg-gradient-to-b from-fondo to-red-500 box-border	cursor-crosshair p-4 w-full h-full")}>
+      <body className={cn(inter.className, "bg-gradient-to-b from-fondo to-red-500 box-border	cursor-crosshair p-4 w-full h-full ")}>
       <header className='rounded-r-md w-full grid grid-cols-[minmax(600px,600px)_minmax(0px,1fr)_minmax(200px,300px)] h-14 items-center justify-center '>
         <ul className='flex list-none m-0 p-0 h-full rounded-t-lg bg-principal border-b border-solid border-white'>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center rounded-tl-lg '>
