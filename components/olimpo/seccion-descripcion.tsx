@@ -8,9 +8,9 @@ type SeccionCostesParams = {
 export default function SeccionDescripcion({ datos }: { datos: SeccionCostesParams }) {
   const { nombre, descripcion } = datos;
   return (
-    <section className="h-full flex flex-col justify-center items-center">
-        <h1 className="-mt-56 text-4xl">{nombre}</h1>
-        <article className="mt-10">{descripcion}</article>
+    <section className="h-full flex flex-col items-center mt-8">
+        <h1 className="text-4xl">{nombre}</h1>
+        <article className="mt-8">{descripcion}</article>
       </section>
   );
 }

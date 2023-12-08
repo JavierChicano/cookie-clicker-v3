@@ -8,9 +8,9 @@ export default function SeccionCostes({ datos }: { datos: SeccionCostesParams })
   const { poder, coste } = datos;
 
   return (
-    <section className="h-full flex flex-col justify-center items-center">
-      <h1 className="-mt-56 text-xl">Costes</h1>
-      <article className="mt-10 flex flex-col justify-center items-center">
+    <section className="h-full flex flex-col mt-8">
+      <h1 className="text-4xl">Coste</h1>
+      <article className="flex flex-col justify-center items-center mt-8">
         <div className="flex flex-row text-xl">
             <span>{coste}</span>
             <img

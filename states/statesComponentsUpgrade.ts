@@ -8,16 +8,16 @@ type Box = {
   descripcion: string
 }
 
-type JaviType = {
-  javiState: Map<number, Box[]>
-  setJaviState: (rowNumber: number, boxesInfo: Box[]) => void
+type FilaMejorasType = {
+  filaMejorasState: Map<number, Box[]>
+  setfilaMejorasState: (rowNumber: number, boxesInfo: Box[]) => void
 }
 
-export const useJavi = create<JaviType>((set, get) => ({
-  javiState: new Map<number, Box[]>(),
-  setJaviState: (rowNumber, boxesInfo) => {
-      get().javiState.set(rowNumber, boxesInfo)
-      set({ javiState: get().javiState })
+export const useFilaMejoras = create<FilaMejorasType>((set, get) => ({
+  filaMejorasState: new Map<number, Box[]>(),
+  setfilaMejorasState: (rowNumber, boxesInfo) => {
+      get().filaMejorasState.set(rowNumber, boxesInfo)
+      set({ filaMejorasState: get().filaMejorasState })
   },
 }))
 
