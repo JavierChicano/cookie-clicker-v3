@@ -14,8 +14,9 @@ export default function ContenedorPrincipal({
 }) {
   // Importa dinámicamente la imagen de la moneda en función del número de fila
   const numMonedas = 4; // Cambia esto al número total de imágenes de monedas
-  const coinIndex = (numeroFila % numMonedas + numMonedas) % numMonedas + 1;
+  const coinIndex = (((numeroFila % numMonedas) + numMonedas) % numMonedas) + 1;
   const coinImage = require(`@/media/monedas/coin${coinIndex}.png`).default;
+
   //Estados
   const { monedasTotales, setMonedasTotales } = useMonedasTotales();
   const { monedasSegundo, setMonedasSegundoTotales } =
@@ -52,9 +53,9 @@ export default function ContenedorPrincipal({
   //   },
   // ];
   // setfilaMejorasState (numeroFila, boxArma);
-  
+
   return (
-    <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,700px)]">
+    <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,600px)] ">
       <section className="flex items-center border-r border-b border-solid p-[8px] bg-principal">
         <img
           src={coinImage.src}
@@ -73,9 +74,13 @@ export default function ContenedorPrincipal({
         />
       </section>
       <section className="rounded-r-lg p-[18px] border-b border-solid bg-principal">
-        <h2 className="mt-[-10px] text-xl">
-          ¡Mejora la produccion de monedas!
-        </h2>
+        <aside className="flex flex-row items-center justify-between mt-[-10px]">
+          <h2 className="text-xl">¡Mejora la producción de monedas!</h2>
+          <span className="text-sm bg-red-400 p-1 rounded-full mr-2">
+            Nivel: {numeroFila + 1}
+          </span>
+        </aside>
+
         <aside className="flex flex-wrap mt-[-2px]">
           <CajaMejora
             datos={{

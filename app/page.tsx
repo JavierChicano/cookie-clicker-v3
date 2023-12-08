@@ -16,7 +16,8 @@ export default function Home() {
     //Hay que llamar a la funcion onclick dentro del componenete cajaCandado
     //fuentes de letras
     //Empezar con el estdo del contador de monedas (y tmb pasarselo al layout)
-    <main className="flex flex-col gap-y-10 text-black w-full h-full overflow-y-auto">
+    
+    <main className="flex flex-col gap-y-10 mb-10 text-black hide-scrollbar ">
       {contenedorArray}
 
       <div

@@ -4,7 +4,7 @@ import { useMonedasTotales, useVerInfo } from "@/states/states";
 import {
   useFuerzaClick,
 } from "@/states/statesComponentsUpgrade";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 type CajaMejorasParams = {
   nombre: string;
@@ -18,12 +18,24 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
   const { monedasTotales, setMonedasTotales } = useMonedasTotales();
   const { verInfo, setVerInfo } = useVerInfo();
-  let intervalo: NodeJS.Timeout;
-  const actualizarMonedas = () => {
-    setMonedasTotales(monedasTotales+1)
-  }
-  //intervalo = setInterval(actualizarMonedas, 10);
-  //const cachedFn = useCallback(actualizarMonedas, intervalo)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+        setMonedasTotales(monedasTotales + 1);
+    }, 1000);
+
+    // Limpiar el intervalo cuando el componente se desmonta
+    return () => clearInterval(intervalId);
+}, []);
+
+  // let interval: NodeJS.Timeout;
+  // const actualizarMonedas = () => {
+  //   numero+1
+  // }
+  // console.log(numero)
+  // interval = setInterval(()=>numero+1, 10);
+  // console.log(numero)
+
 
   return (
     <div

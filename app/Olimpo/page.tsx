@@ -6,6 +6,7 @@ import dios3 from "@/media/dioses/dios3.png";
 import dios4 from "@/media/dioses/dios4.png";
 
 export default function Page() {
+  
   return (
     <main className="flex flex-col h-full overflow-y-auto">
       {/* Primera fila */}
