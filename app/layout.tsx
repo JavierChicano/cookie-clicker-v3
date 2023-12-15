@@ -31,7 +31,7 @@ export default function RootLayout({
       <header className='rounded-r-md w-full grid grid-cols-[minmax(600px,600px)_minmax(0px,1fr)_minmax(200px,300px)] h-14 items-center justify-center '>
         <ul className='flex list-none m-0 p-0 h-full rounded-t-lg bg-principal border-b border-solid border-white'>
             <li className='flex flex-[1] cursor-pointer h-full items-center justify-center rounded-tl-lg '>
-                <Link href="/">
+                <Link href="/v-Movil">
                     <img src={coin1.src} alt="Moneda"
                     className='h-12'></img>
                 </Link>
