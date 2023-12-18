@@ -4,8 +4,8 @@ import {
   useFilaMejoras,
   useFuerzaClick,
 } from "@/states/statesComponentsUpgrade";
-import ContenedorMejoras from "./M-cont-mejoras";
-import ContenedorTienda from "./M-cont-tienda";
+import MContenedorMejoras from "./M-cont-mejoras";
+import MContenedorTienda from "./M-cont-tienda";
 
 export default function ContenedorPrincipal({
   numeroFila,
@@ -45,6 +45,8 @@ export default function ContenedorPrincipal({
   // setfilaMejorasState (numeroFila, boxArma);
 
   return (
+    <>
+    {/* Version movil */}
     <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(500px,1fr)] ">
       <section className="flex items-center border-r border-b border-solid p-[8px] bg-principal">
         <img
@@ -64,17 +66,22 @@ export default function ContenedorPrincipal({
         />
       </section>
       {/* Parte de las mejoras */}
-      <ContenedorMejoras
+      <MContenedorMejoras
         datos={{
           numeroFila: numeroFila,
         }}
       />
       {/* Parte de la tienda */}
-      <ContenedorTienda
+      <MContenedorTienda
         datos={{
           numeroFila: numeroFila,
         }}
       />
     </div>
+
+    {/* Version movil */}
+
+    </>
+    
   );
 }

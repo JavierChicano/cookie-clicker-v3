@@ -1,4 +1,4 @@
-import CajaMejora from "./M-caja-mejoras";
+import MCajaMejora from "./M-caja-mejoras";
 import arrow from "@/media/arrow.png";
 import { usePanelObjetos } from "@/states/m-states";
 import { cn } from "@/lib/utils";
@@ -7,7 +7,7 @@ type CajaMonedasParams = {
   numeroFila: number;
 };
 
-export default function ContenedorTienda({
+export default function MContenedorTienda({
   datos,
 }: {
   datos: CajaMonedasParams;
@@ -35,7 +35,7 @@ export default function ContenedorTienda({
         </aside>
     
     <aside className="flex flex-wrap p-[10p] mt-[-2px]">
-      <CajaMejora
+      <MCajaMejora
         datos={{
           nombre: "PowerUps",
           nivel: 1,
@@ -44,7 +44,7 @@ export default function ContenedorTienda({
             "Añade un boost que hace a las tropas mas eficientes",
         }}
       />
-      <CajaMejora
+      <MCajaMejora
         datos={{
           nombre: "Talentos",
           nivel: 1,
@@ -52,7 +52,7 @@ export default function ContenedorTienda({
           descripcion: "Desbloquea habilidades unicas de cada objeto",
         }}
       />
-      <CajaMejora
+      <MCajaMejora
         datos={{
           nombre: "Reliquias",
           nivel: 1,

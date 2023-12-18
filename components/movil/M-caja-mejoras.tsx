@@ -13,7 +13,7 @@ type CajaMejorasParams = {
   descripcion: string;
 };
 
-export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
+export default function MCajaMejoras({ datos }: { datos: CajaMejorasParams }) {
   const { nombre, nivel, coste, descripcion } = datos;
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
   const { monedasTotales, setMonedasTotales } = useMonedasTotales();

@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import arrow from "@/media/arrow.png";
 import { usePanelObjetos } from "@/states/m-states";
-import CajaMejora from "./M-caja-mejoras";
+import MCajaMejora from "./M-caja-mejoras";
 
 type CajaMonedasParams = {
   numeroFila: number;
 };
 
-export default function ContenedorMejoras({
+export default function MContenedorMejoras({
   datos,
 }: {
   datos: CajaMonedasParams;
@@ -34,7 +34,7 @@ export default function ContenedorMejoras({
       </aside>
 
       <aside className="flex flex-wrap mt-[-2px]">
-        <CajaMejora
+        <MCajaMejora
           datos={{
             nombre: "Arma",
             nivel: 1,
@@ -42,7 +42,7 @@ export default function ContenedorMejoras({
             descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
           }}
         />
-        <CajaMejora
+        <MCajaMejora
           datos={{
             nombre: "Soldado",
             nivel: 1,
@@ -52,7 +52,7 @@ export default function ContenedorMejoras({
             }`,
           }}
         />
-        <CajaMejora
+        <MCajaMejora
           datos={{
             nombre: "Sargento",
             nivel: 1,
@@ -62,7 +62,7 @@ export default function ContenedorMejoras({
             }`,
           }}
         />
-        <CajaMejora
+        <MCajaMejora
           datos={{
             nombre: "Capitán",
             nivel: 1,

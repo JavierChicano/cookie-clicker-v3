@@ -5,7 +5,7 @@ type CajaMonedasParams = {
   tier: number;
 };
 
-export default function CajaMejora({ datos }: { datos: CajaMonedasParams }) {
+export default function MCajaMonedas({ datos }: { datos: CajaMonedasParams }) {
   const { monedasSegundo, tier } = datos;
   return (
     <article
