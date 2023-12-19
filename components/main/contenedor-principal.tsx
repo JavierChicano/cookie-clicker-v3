@@ -21,7 +21,7 @@ export default function ContenedorPrincipal({
   const coinImage = require(`@/media/monedas/coin${coinIndex}.png`).default;
 
   //Estados
-  const { monedasTotales, setMonedasTotales } = useMonedasTotales();
+  const { monedasTotales, setMonedasTotales, addMonedasTotales, subtractMonedasTotales } = useMonedasTotales();
   const { monedasSegundo, setMonedasSegundoTotales } =
     useMonedasTotalesSegundo();
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
@@ -68,7 +68,7 @@ export default function ContenedorPrincipal({
             className="relative h-[130px] cursor-pointer active:scale-125"
             onClick={() => {
               //Cuando clickas en la moneda principal se suma X a las monedas totales
-              setMonedasTotales((numeroFila + 1) * fuerzaArma + monedasTotales);
+              addMonedasTotales((numeroFila + 1) * fuerzaArma);
             }}
           />
           <CajaMoneda

@@ -4,7 +4,7 @@ type Box = {
   nombre: 'Arma' | 'Soldado' | 'Sargento' | 'Capitan'
   nivel: number
   precio: number
-  accion: any
+  accion: () => void
   descripcion: string
 }
 

@@ -25,11 +25,15 @@ export const useCosteCandado = create<CosteCandadoType>()((set) => ({
 type ContadorMonedasType = {
   monedasTotales: number;
   setMonedasTotales: (by: number) => void;
+  addMonedasTotales: (by: number) => void;
+  subtractMonedasTotales: (by: number) => void;
 };
 
 export const useMonedasTotales = create<ContadorMonedasType>()((set) => ({
   monedasTotales: 0,
   setMonedasTotales: (moneda: number) => set(() =>({monedasTotales: moneda})),
+  addMonedasTotales: (by:number) => set((state) =>({monedasTotales: state.monedasTotales+by})),
+  subtractMonedasTotales: (by:number) => set((state) =>({monedasTotales: state.monedasTotales-by})),
 }));
 
 //Estado para contar las monedas por segundo de esa fila en concreto

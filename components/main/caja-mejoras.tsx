@@ -1,10 +1,8 @@
 import { cn } from "@/lib/utils";
 import coin1 from "@/media/coin1.png";
 import { useMonedasTotales, useVerInfo } from "@/states/states";
-import {
-  useFuerzaClick,
-} from "@/states/statesComponentsUpgrade";
-import { useCallback, useEffect } from "react";
+import { useFuerzaClick } from "@/states/statesComponentsUpgrade";
+import IntervaloComp from "@/components/acciones/intervalo";
 
 type CajaMejorasParams = {
   nombre: string;
@@ -18,15 +16,14 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
   const { monedasTotales, setMonedasTotales } = useMonedasTotales();
   const { verInfo, setVerInfo } = useVerInfo();
+  //   useEffect(() => {
+  //     const intervalId = setInterval(() => {
+  //         setMonedasTotales(monedasTotales + 1);
+  //     }, 1000);
 
-//   useEffect(() => {
-//     const intervalId = setInterval(() => {
-//         setMonedasTotales(monedasTotales + 1);
-//     }, 1000);
-
-//     // Limpiar el intervalo cuando el componente se desmonta
-//     return () => clearInterval(intervalId);
-// }, []);
+  //     // Limpiar el intervalo cuando el componente se desmonta
+  //     return () => clearInterval(intervalId);
+  // }, []);
 
   // let interval: NodeJS.Timeout;
   // const actualizarMonedas = () => {
@@ -35,7 +32,6 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   // console.log(numero)
   // interval = setInterval(()=>numero+1, 10);
   // console.log(numero)
-
 
   return (
     <div
