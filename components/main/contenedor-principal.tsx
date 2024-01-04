@@ -1,14 +1,15 @@
-import coin1 from "@/media/coin1.png";
 import CajaMejora from "./caja-mejoras";
 import CajaMoneda from "@/components/main/caja-monedas";
 
 import { useMonedasTotales, useMonedasTotalesSegundo } from "@/states/states";
 import {
+  useAutoClick,
   useFilaMejoras,
   useFuerzaClick,
 } from "@/states/statesComponentsUpgrade";
 import MContenedorTienda from "../movil/M-cont-tienda";
 import MContenedorMejoras from "../movil/M-cont-mejoras";
+import { useEffect } from "react";
 
 export default function ContenedorPrincipal({
   numeroFila,
@@ -24,8 +25,9 @@ export default function ContenedorPrincipal({
   const { monedasTotales, setMonedasTotales, addMonedasTotales, subtractMonedasTotales } = useMonedasTotales();
   const { monedasSegundo, setMonedasSegundoTotales } =
     useMonedasTotalesSegundo();
-  const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
+  const { fuerzaArma, setFuerzaArma, addFuerzaArma } = useFuerzaClick();
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
+  const {autoClick, setAutoClick, addAutoClick} =useAutoClick();
 
   //Constantes de los precios
   const precio = 10 * (numeroFila + 1);
@@ -37,25 +39,72 @@ export default function ContenedorPrincipal({
   const precioTalentos = precio + 15;
   const precioReliquias = precio + 20;
 
-  // type Box = {
-  //   nombre: 'Arma' | 'Soldado' | 'Sargento' | 'Capitan'
-  //   nivel: number
-  //   precio: number
-  //   accion: any
-  //   descripcion: string
-  // }
+  useEffect(() => {
+    setfilaMejorasState(numeroFila, [
+      {
+        nombre: "Arma",
+        nivel: 1,
+        precio: precioArma,
+        descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
+        accion: () => addFuerzaArma(1),
+      },
+      {
+        nombre: "Soldado",
+        nivel: 1,
+        precio: precioSoldado,
+        descripcion: `Aumenta la producción de monedas por segundo en ${numeroFila + 1}`,
+        accion: () => addAutoClick(1),
+      },
+      {
+        nombre: "Sargento",
+        nivel: 1,
+        precio: precioSargento,
+        descripcion: `Aumenta la producción de monedas por segundo en ${(numeroFila + 1) * 3}`,
+        accion: () => addAutoClick(3),
 
-  // //Seteo de las filas
-  // const boxArma: Box[] = [
-  //   {
-  //     nombre: "Arma",
-  //     nivel: 1,
-  //     precio: precioArma,
-  //     accion: "nula",
-  //     descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
-  //   },
-  // ];
-  // setfilaMejorasState (numeroFila, boxArma);
+      },
+      {
+        nombre: "Capitán",
+        nivel: 1,
+        precio: precioCapitan,
+        descripcion: `Aumenta la producción de monedas por segundo en ${(numeroFila + 1) * 5}`,
+        accion: () => addAutoClick(5),
+
+      },
+    ]);
+  }, [numeroFila, precioArma, precioSoldado, precioSargento, precioCapitan, setfilaMejorasState]);
+
+
+  useEffect(() => {
+    const accionIntervalo = () => {
+      addMonedasTotales(1);
+      console.log("autoclick de la acción: ", autoClick);
+
+
+    };
+
+    const intervalo = setInterval(accionIntervalo, 1000);
+
+    return () => {
+      clearInterval(intervalo); // Limpiar el intervalo al desmontar el componente
+    };
+  }, []);
+
+  const datosDeLaFila = filaMejorasState.get(numeroFila);
+  const cajasMejora = datosDeLaFila
+    ? datosDeLaFila.map((box, index) => (
+        <CajaMejora
+          key={index} // Clave única 
+          datos={{
+            nombre: box.nombre,
+            nivel: box.nivel,
+            coste: box.precio,
+            descripcion: box.descripcion,
+            accion: box.accion,
+          }}
+        />
+      ))
+    : null;
 
   return (
     <>
@@ -87,44 +136,7 @@ export default function ContenedorPrincipal({
           </aside>
 
           <aside className="flex flex-wrap mt-[-2px]">
-            <CajaMejora
-              datos={{
-                nombre: "Arma",
-                nivel: 1,
-                coste: precioArma,
-                descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
-              }}
-            />
-            <CajaMejora
-              datos={{
-                nombre: "Soldado",
-                nivel: 1,
-                coste: precioSoldado,
-                descripcion: `Aumenta la producción de monedas por segundo en ${
-                  numeroFila + 1
-                }`,
-              }}
-            />
-            <CajaMejora
-              datos={{
-                nombre: "Sargento",
-                nivel: 1,
-                coste: precioSargento,
-                descripcion: `Aumenta la producción de monedas por segundo en ${
-                  (numeroFila + 1) * 3
-                }`,
-              }}
-            />
-            <CajaMejora
-              datos={{
-                nombre: "Capitán",
-                nivel: 1,
-                coste: precioCapitan,
-                descripcion: `Aumenta la producción de monedas por segundo en ${
-                  (numeroFila + 1) * 5
-                }`,
-              }}
-            />
+          {cajasMejora}
           </aside>
         </section>
         <section className="rounded-lg ml-[50px] pl-[15px] pr-[15px] border-b border-solid bg-principal">
@@ -132,7 +144,7 @@ export default function ContenedorPrincipal({
             ¡Mejora la eficacia de tu ejercito en la tienda!
           </h3>
           <aside className="flex flex-wrap p-[10p] mt-[-2px]">
-            <CajaMejora
+            {/* <CajaMejora
               datos={{
                 nombre: "PowerUps",
                 nivel: 1,
@@ -156,7 +168,7 @@ export default function ContenedorPrincipal({
                 coste: precioReliquias,
                 descripcion: "Implementa pasivas unicas en cada nivel",
               }}
-            />
+            /> */}
           </aside>
         </section>
       </div>

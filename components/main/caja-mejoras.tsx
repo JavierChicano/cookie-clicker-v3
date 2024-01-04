@@ -1,46 +1,42 @@
 import { cn } from "@/lib/utils";
 import coin1 from "@/media/coin1.png";
 import { useMonedasTotales, useVerInfo } from "@/states/states";
-import { useFuerzaClick } from "@/states/statesComponentsUpgrade";
+import {
+  useAutoClick,
+  useFilaMejoras,
+  useFuerzaClick,
+} from "@/states/statesComponentsUpgrade";
 import IntervaloComp from "@/components/acciones/intervalo";
+import { useEffect } from "react";
 
 type CajaMejorasParams = {
   nombre: string;
   nivel: number;
   coste: number;
   descripcion: string;
+  accion: () => void;
 };
 
 export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
-  const { nombre, nivel, coste, descripcion } = datos;
+  const { nombre, nivel, coste, descripcion, accion } = datos;
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
-  const { monedasTotales, setMonedasTotales } = useMonedasTotales();
+  const {autoClick, setAutoClick, addAutoClick} =useAutoClick();
   const { verInfo, setVerInfo } = useVerInfo();
-  //   useEffect(() => {
-  //     const intervalId = setInterval(() => {
-  //         setMonedasTotales(monedasTotales + 1);
-  //     }, 1000);
+  const { setfilaMejorasState } = useFilaMejoras();
 
-  //     // Limpiar el intervalo cuando el componente se desmonta
-  //     return () => clearInterval(intervalId);
-  // }, []);
+  const handleClick = () => {
+    console.log("Valor de la fuerza: ", fuerzaArma);
+  accion();
+  console.log("valor del autoclick: ", autoClick);
 
-  // let interval: NodeJS.Timeout;
-  // const actualizarMonedas = () => {
-  //   numero+1
-  // }
-  // console.log(numero)
-  // interval = setInterval(()=>numero+1, 10);
-  // console.log(numero)
-
+  };
+  
   return (
     <div
-      className="relative flex flex-1 flex-col items-center justify-center  mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario"
-      onClick={() => {
-        //Comprobar que tipo de componente es
-        setFuerzaArma(fuerzaArma + 1);
-      }}
+      className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario"
+      onClick={handleClick}
     >
+  
       <h1 className="font-semibold mt-1">{nombre}</h1>
       <section
         className={cn(
