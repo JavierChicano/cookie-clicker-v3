@@ -1,6 +1,7 @@
 import zustand, { create } from "zustand";
 
 type Box = {
+  fila: number
   nombre: 'Arma' | 'Soldado' | 'Sargento' | 'Capitán'
   nivel: number
   precio: number
@@ -41,7 +42,32 @@ type AutoClick ={
   addAutoClick: (by: number) => void;
 }
 export const useAutoClick = create<AutoClick>()((set) => ({
-  autoClick: 1,
+  autoClick: 0,
   setAutoClick: (valor: number) => set(() => ({ autoClick: valor})),
   addAutoClick: (by:number) => set((state) =>({autoClick: state.autoClick+by})),
 }))
+
+//Estado de los niveles
+type Niveles ={
+  nvArma: number;
+  nvSoldado: number;
+  nvSargento: number;
+  nvCapitan: number;
+  setNiveles: (by: number) => void;
+  addNvArma: (by: number) => void;
+  addNvSoldado: (by: number) => void;
+  addNvSargento: (by: number) => void;
+  addNvCapitan: (by: number) => void;
+}
+
+export const useNiveles = create<Niveles>()((set) => ({
+  nvArma: 1,
+  nvSoldado: 1,
+  nvSargento: 1,
+  nvCapitan: 1,
+  setNiveles: (valor: number) => set(() => ({ nvArma: valor, nvSoldado: valor, nvSargento: valor, nvCapitan: valor })),
+  addNvArma: (by: number) => set((state) => ({ nvArma: state.nvArma + by })),
+  addNvSoldado: (by: number) => set((state) => ({ nvSoldado: state.nvSoldado + by })),
+  addNvSargento: (by: number) => set((state) => ({ nvSargento: state.nvSargento + by })),
+  addNvCapitan: (by: number) => set((state) => ({ nvCapitan: state.nvCapitan + by })),
+}));

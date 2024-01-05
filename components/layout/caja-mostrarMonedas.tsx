@@ -7,7 +7,7 @@ export default function CajaMostrarMonedas() {
 
   return (
     <li className=" flex flex-[3] bg-seleccion rounded-tr-lg  text-lg items-center justify-center">
-      Monedas totales: {monedasTotales}
+      Monedas totales: {Math.floor(monedasTotales)}
     </li>
   );
 }

@@ -5,6 +5,7 @@ import {
   useAutoClick,
   useFilaMejoras,
   useFuerzaClick,
+  useNiveles,
 } from "@/states/statesComponentsUpgrade";
 import IntervaloComp from "@/components/acciones/intervalo";
 import { useEffect } from "react";
@@ -20,23 +21,23 @@ type CajaMejorasParams = {
 export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { nombre, nivel, coste, descripcion, accion } = datos;
   const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
-  const {autoClick, setAutoClick, addAutoClick} =useAutoClick();
+  const { autoClick, setAutoClick, addAutoClick } = useAutoClick();
   const { verInfo, setVerInfo } = useVerInfo();
   const { setfilaMejorasState } = useFilaMejoras();
+  const { addNvArma, addNvSoldado, addNvSargento, addNvCapitan} = useNiveles();
 
-  const handleClick = () => {
+
+  const handleClick = (nombre: string) => () => {
     console.log("Valor de la fuerza: ", fuerzaArma);
-  accion();
-  console.log("valor del autoclick: ", autoClick);
-
+    accion();
+    console.log("Valor del autoclick: ", autoClick*100);
   };
   
   return (
     <div
       className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario"
-      onClick={handleClick}
+      onClick={handleClick(nombre)}
     >
-  
       <h1 className="font-semibold mt-1">{nombre}</h1>
       <section
         className={cn(

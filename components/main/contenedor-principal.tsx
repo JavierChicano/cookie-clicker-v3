@@ -6,10 +6,11 @@ import {
   useAutoClick,
   useFilaMejoras,
   useFuerzaClick,
+  useNiveles,
 } from "@/states/statesComponentsUpgrade";
 import MContenedorTienda from "../movil/M-cont-tienda";
 import MContenedorMejoras from "../movil/M-cont-mejoras";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ContenedorPrincipal({
   numeroFila,
@@ -22,12 +23,27 @@ export default function ContenedorPrincipal({
   const coinImage = require(`@/media/monedas/coin${coinIndex}.png`).default;
 
   //Estados
-  const { monedasTotales, setMonedasTotales, addMonedasTotales, subtractMonedasTotales } = useMonedasTotales();
+  const {
+    monedasTotales,
+    setMonedasTotales,
+    addMonedasTotales,
+    subtractMonedasTotales,
+  } = useMonedasTotales();
   const { monedasSegundo, setMonedasSegundoTotales } =
     useMonedasTotalesSegundo();
   const { fuerzaArma, setFuerzaArma, addFuerzaArma } = useFuerzaClick();
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
-  const {autoClick, setAutoClick, addAutoClick} =useAutoClick();
+  const { autoClick, setAutoClick, addAutoClick } = useAutoClick();
+  const {
+    nvArma,
+    nvSoldado,
+    nvSargento,
+    nvCapitan,
+    addNvArma,
+    addNvSoldado,
+    addNvSargento,
+    addNvCapitan,
+  } = useNiveles();
 
   //Constantes de los precios
   const precio = 10 * (numeroFila + 1);
@@ -42,45 +58,76 @@ export default function ContenedorPrincipal({
   useEffect(() => {
     setfilaMejorasState(numeroFila, [
       {
+        fila: numeroFila,
         nombre: "Arma",
-        nivel: 1,
+        nivel: nvArma,
         precio: precioArma,
         descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
-        accion: () => addFuerzaArma(1),
+        accion: () => {
+          addFuerzaArma(1), addNvArma(1);
+        },
       },
       {
+        fila: numeroFila,
         nombre: "Soldado",
-        nivel: 1,
+        nivel: nvSoldado,
         precio: precioSoldado,
-        descripcion: `Aumenta la producción de monedas por segundo en ${numeroFila + 1}`,
-        accion: () => addAutoClick(1),
+        descripcion: `Aumenta la producción de monedas por segundo en ${
+          numeroFila + 1
+        }`,
+        accion: () => {
+          addAutoClick(1), addNvSoldado(1);
+        },
       },
       {
+        fila: numeroFila,
         nombre: "Sargento",
-        nivel: 1,
+        nivel: nvSargento,
         precio: precioSargento,
-        descripcion: `Aumenta la producción de monedas por segundo en ${(numeroFila + 1) * 3}`,
-        accion: () => addAutoClick(3),
-
+        descripcion: `Aumenta la producción de monedas por segundo en ${
+          (numeroFila + 1) * 3
+        }`,
+        accion: () => {
+          addAutoClick(3), addNvSargento(1);
+        },
       },
       {
+        fila: numeroFila,
         nombre: "Capitán",
-        nivel: 1,
+        nivel: nvCapitan,
         precio: precioCapitan,
-        descripcion: `Aumenta la producción de monedas por segundo en ${(numeroFila + 1) * 5}`,
-        accion: () => addAutoClick(5),
-
+        descripcion: `Aumenta la producción de monedas por segundo en ${
+          (numeroFila + 1) * 5
+        }`,
+        accion: () => {
+          addAutoClick(5), addNvCapitan(1);
+        },
       },
     ]);
-  }, [numeroFila, precioArma, precioSoldado, precioSargento, precioCapitan, setfilaMejorasState]);
+  }, [
+    numeroFila,
+    precioArma,
+    precioSoldado,
+    precioSargento,
+    precioCapitan,
+    setfilaMejorasState,
+    nvArma,
+    nvSoldado,
+    nvSargento,
+    nvCapitan,
+  ]);
 
+  //Parte del autoclick (monedas automaticas)
+  const autoClickRef = useRef(autoClick);
+
+  useEffect(() => {
+    autoClickRef.current = autoClick;
+  }, [autoClick]);
 
   useEffect(() => {
     const accionIntervalo = () => {
-      addMonedasTotales(1);
-      console.log("autoclick de la acción: ", autoClick);
-
-
+      addMonedasTotales(autoClickRef.current);
+      console.log("autoclick de la acción: ", autoClickRef.current);
     };
 
     const intervalo = setInterval(accionIntervalo, 1000);
@@ -94,7 +141,7 @@ export default function ContenedorPrincipal({
   const cajasMejora = datosDeLaFila
     ? datosDeLaFila.map((box, index) => (
         <CajaMejora
-          key={index} // Clave única 
+          key={index} // Clave única
           datos={{
             nombre: box.nombre,
             nivel: box.nivel,
@@ -122,8 +169,7 @@ export default function ContenedorPrincipal({
           />
           <CajaMoneda
             datos={{
-              monedasSegundo: monedasSegundo,
-              tier: 1,
+              monedasSegundo: autoClickRef.current
             }}
           />
         </section>
@@ -135,9 +181,7 @@ export default function ContenedorPrincipal({
             </span>
           </aside>
 
-          <aside className="flex flex-wrap mt-[-2px]">
-          {cajasMejora}
-          </aside>
+          <aside className="flex flex-wrap mt-[-2px]">{cajasMejora}</aside>
         </section>
         <section className="rounded-lg ml-[50px] pl-[15px] pr-[15px] border-b border-solid bg-principal">
           <h3 className="mt-[10px]  text-xl">
