@@ -5,6 +5,7 @@ import { useMonedasTotales, useMonedasTotalesSegundo } from "@/states/states";
 import {
   useAutoClick,
   useFilaMejoras,
+  useFilaTienda,
   useFuerzaClick,
   useNiveles,
 } from "@/states/statesComponentsUpgrade";
@@ -33,6 +34,7 @@ export default function ContenedorPrincipal({
     useMonedasTotalesSegundo();
   const { fuerzaArma, setFuerzaArma, addFuerzaArma } = useFuerzaClick();
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
+  const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
   const { autoClick, setAutoClick, addAutoClick } = useAutoClick();
   const {
     nvArma,
@@ -55,6 +57,7 @@ export default function ContenedorPrincipal({
   const precioTalentos = precio + 15;
   const precioReliquias = precio + 20;
 
+  //Seteo de la fila de la produccion de monedas
   useEffect(() => {
     setfilaMejorasState(numeroFila, [
       {
@@ -117,6 +120,43 @@ export default function ContenedorPrincipal({
     nvCapitan,
   ]);
 
+  //Seteo de la fila de la tienda
+  useEffect(() => {
+    setfilaTiendaState(numeroFila, [
+      {
+        fila: numeroFila,
+        nombre: "PowerUps",
+        nivel: 1,
+        precio: precioPowerUps,
+        descripcion: `Añade un boost que hace a las tropas mas eficientes`,
+        accion: () => {},
+      },
+      {
+        fila: numeroFila,
+        nombre: "Talentos",
+        nivel: 1,
+        precio: precioTalentos,
+        descripcion: `Desbloquea habilidades unicas de cada objeto`,
+
+        accion: () => {},
+      },
+      {
+        fila: numeroFila,
+        nombre: "Reliquias",
+        nivel: 1,
+        precio: precioReliquias,
+        descripcion: `Implementa pasivas unicas en cada nivel`,
+        accion: () => {},
+      },
+    ]);
+  }, [
+    numeroFila,
+    precioPowerUps,
+    precioTalentos,
+    precioReliquias,
+    setfilaTiendaState,
+  ]);
+
   //Parte del autoclick (monedas automaticas)
   const autoClickRef = useRef(autoClick);
 
@@ -153,6 +193,22 @@ export default function ContenedorPrincipal({
       ))
     : null;
 
+  const datosDeLaTienda = filaTiendaState.get(numeroFila);
+  const cajasTienda = datosDeLaTienda
+    ? datosDeLaTienda.map((box, index) => (
+        <CajaMejora
+          key={index}
+          datos={{
+            nombre: box.nombre,
+            nivel: box.nivel,
+            coste: box.precio,
+            descripcion: box.descripcion,
+            accion: box.accion,
+          }}
+        />
+      ))
+    : null;
+
   return (
     <>
       {/* Version escritorio */}
@@ -169,7 +225,7 @@ export default function ContenedorPrincipal({
           />
           <CajaMoneda
             datos={{
-              monedasSegundo: autoClickRef.current
+              monedasSegundo: autoClickRef.current,
             }}
           />
         </section>
@@ -188,31 +244,7 @@ export default function ContenedorPrincipal({
             ¡Mejora la eficacia de tu ejercito en la tienda!
           </h3>
           <aside className="flex flex-wrap p-[10p] mt-[-2px]">
-            {/* <CajaMejora
-              datos={{
-                nombre: "PowerUps",
-                nivel: 1,
-                coste: precioPowerUps,
-                descripcion:
-                  "Añade un boost que hace a las tropas mas eficientes",
-              }}
-            />
-            <CajaMejora
-              datos={{
-                nombre: "Talentos",
-                nivel: 1,
-                coste: precioTalentos,
-                descripcion: "Desbloquea habilidades unicas de cada objeto",
-              }}
-            />
-            <CajaMejora
-              datos={{
-                nombre: "Reliquias",
-                nivel: 1,
-                coste: precioReliquias,
-                descripcion: "Implementa pasivas unicas en cada nivel",
-              }}
-            /> */}
+            {cajasTienda}
           </aside>
         </section>
       </div>
@@ -231,7 +263,6 @@ export default function ContenedorPrincipal({
           <CajaMoneda
             datos={{
               monedasSegundo: monedasSegundo,
-              tier: 1,
             }}
           />
         </section>
