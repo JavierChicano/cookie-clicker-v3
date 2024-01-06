@@ -7,8 +7,6 @@ import {
   useFuerzaClick,
   useNiveles,
 } from "@/states/statesComponentsUpgrade";
-import IntervaloComp from "@/components/acciones/intervalo";
-import { useEffect } from "react";
 
 type CajaMejorasParams = {
   nombre: string;
