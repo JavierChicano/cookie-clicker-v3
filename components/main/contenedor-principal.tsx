@@ -9,11 +9,12 @@ import {
   useFilaMejoras,
   useFilaTienda,
   useFuerzaClick,
-  useNiveles,
-} from "@/states/statesComponentsUpgrade";
+  useMonedasSegundo,
+} from "@/states/statesComponents";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { usePanelObjetos } from "@/states/m-states";
+import { preciosComponentes } from "../../precios/preciosComponentes";
 
 export default function ContenedorPrincipal({
   numeroFila,
@@ -42,26 +43,8 @@ export default function ContenedorPrincipal({
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
   const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
   const { autoClick, setAutoClick, addAutoClick } = useAutoClick();
-  const {
-    nvArma,
-    nvSoldado,
-    nvSargento,
-    nvCapitan,
-    addNvArma,
-    addNvSoldado,
-    addNvSargento,
-    addNvCapitan,
-  } = useNiveles();
-
-  //Constantes de los precios
-  const precio = 10 * (numeroFila + 1);
-  const precioArma = precio + 0;
-  const precioSoldado = precio + 5;
-  const precioSargento = precio + 10;
-  const precioCapitan = precio + 15;
-  const precioPowerUps = precio + 10;
-  const precioTalentos = precio + 15;
-  const precioReliquias = precio + 20;
+  const { monedasSegundoState, setMonedasSegundoState, addMonedasSegundo } =
+    useMonedasSegundo();
 
   //Seteo de la fila de la produccion de monedas
   useEffect(() => {
@@ -69,99 +52,54 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Arma",
-        nivel: nvArma,
-        precio: precioArma,
+        nivel: 1,
+        precio: preciosComponentes.get("Arma") ?? 0,
         descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
         accion: () => {
-          addFuerzaArma(1), addNvArma(1);
+          addFuerzaArma(1);
         },
       },
       {
         fila: numeroFila,
         nombre: "Soldado",
-        nivel: nvSoldado,
-        precio: precioSoldado,
-        descripcion: `Aumenta la producción de monedas por segundo en ${
+        nivel: 1,
+        precio: preciosComponentes.get("Soldado") ?? 0,
+        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           numeroFila + 1
         }`,
         accion: () => {
-          addAutoClick(1), addNvSoldado(1);
+          addAutoClick(1);
+          addMonedasSegundo(numeroFila, 1);
         },
       },
       {
         fila: numeroFila,
         nombre: "Sargento",
-        nivel: nvSargento,
-        precio: precioSargento,
-        descripcion: `Aumenta la producción de monedas por segundo en ${
+        nivel: 1,
+        precio: preciosComponentes.get("Sargento") ?? 0,
+        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           (numeroFila + 1) * 3
         }`,
         accion: () => {
-          addAutoClick(3), addNvSargento(1);
+          addAutoClick(3);
+          addMonedasSegundo(numeroFila, 3);
         },
       },
       {
         fila: numeroFila,
-        nombre: "Capitán",
-        nivel: nvCapitan,
-        precio: precioCapitan,
-        descripcion: `Aumenta la producción de monedas por segundo en ${
+        nombre: "Capitan",
+        nivel: 1,
+        precio: preciosComponentes.get("Capitan") ?? 0,
+        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           (numeroFila + 1) * 5
         }`,
         accion: () => {
-          addAutoClick(5), addNvCapitan(1);
+          addAutoClick(5);
+          addMonedasSegundo(numeroFila, 5);
         },
       },
     ]);
-  }, [
-    numeroFila,
-    precioArma,
-    precioSoldado,
-    precioSargento,
-    precioCapitan,
-    setfilaMejorasState,
-    nvArma,
-    nvSoldado,
-    nvSargento,
-    nvCapitan,
-  ]);
-
-  //Seteo de la fila de la tienda
-  useEffect(() => {
-    setfilaTiendaState(numeroFila, [
-      {
-        fila: numeroFila,
-        nombre: "PowerUps",
-        nivel: 1,
-        precio: precioPowerUps,
-        descripcion: `Añade un boost que hace a las tropas mas eficientes`,
-        accion: () => {},
-      },
-      {
-        fila: numeroFila,
-        nombre: "Talentos",
-        nivel: 1,
-        precio: precioTalentos,
-        descripcion: `Desbloquea habilidades unicas de cada objeto`,
-
-        accion: () => {},
-      },
-      {
-        fila: numeroFila,
-        nombre: "Reliquias",
-        nivel: 1,
-        precio: precioReliquias,
-        descripcion: `Implementa pasivas unicas en cada nivel`,
-        accion: () => {},
-      },
-    ]);
-  }, [
-    numeroFila,
-    precioPowerUps,
-    precioTalentos,
-    precioReliquias,
-    setfilaTiendaState,
-  ]);
+  }, [numeroFila, setfilaMejorasState]);
 
   //Parte del autoclick (monedas automaticas)
   const autoClickRef = useRef(autoClick);
@@ -170,18 +108,43 @@ export default function ContenedorPrincipal({
     autoClickRef.current = autoClick;
   }, [autoClick]);
 
+  //Seteo de la fila de la tienda
   useEffect(() => {
-    const accionIntervalo = () => {
-      addMonedasTotales(autoClickRef.current);
-      console.log("autoclick de la acción: ", autoClickRef.current);
-    };
+    setfilaTiendaState(numeroFila, [
+      {
+        fila: numeroFila,
+        nombre: "PowerUps",
+        nivel: 1,
+        precio: preciosComponentes.get("PowerUps") ?? 0,
+        descripcion: `Añade un boost que hace a las tropas mas eficientes`,
+        accion: () => {},
+      },
+      {
+        fila: numeroFila,
+        nombre: "Talentos",
+        nivel: 1,
+        precio: preciosComponentes.get("Talentos") ?? 0,
+        descripcion: `Desbloquea habilidades unicas de cada objeto`,
 
-    const intervalo = setInterval(accionIntervalo, 1000);
+        accion: () => {},
+      },
+      {
+        fila: numeroFila,
+        nombre: "Reliquias",
+        nivel: 1,
+        precio: preciosComponentes.get("Reliquias") ?? 0,
+        descripcion: `Implementa pasivas unicas en cada nivel`,
+        accion: () => {},
+      },
+    ]);
+  }, [numeroFila, setfilaTiendaState]);
 
-    return () => {
-      clearInterval(intervalo); // Limpiar el intervalo al desmontar el componente
-    };
-  }, []);
+  //Seteo de las monedas por segundo
+  useEffect(() => {
+    setMonedasSegundoState(numeroFila, {
+      monedasSegundo: 0,
+    });
+  }, [numeroFila, setMonedasSegundoState]);
 
   const datosDeLaFila = filaMejorasState.get(numeroFila);
   const cajasMejora = datosDeLaFila
@@ -189,6 +152,7 @@ export default function ContenedorPrincipal({
         <CajaMejora
           key={index} // Clave única
           datos={{
+            fila: box.fila,
             nombre: box.nombre,
             nivel: box.nivel,
             coste: box.precio,
@@ -205,6 +169,7 @@ export default function ContenedorPrincipal({
         <CajaMejora
           key={index}
           datos={{
+            fila: box.fila,
             nombre: box.nombre,
             nivel: box.nivel,
             coste: box.precio,
@@ -215,9 +180,20 @@ export default function ContenedorPrincipal({
       ))
     : null;
 
+  const datosMonedasSegundo = monedasSegundoState.get(numeroFila);
+  const cajasMoneda =
+    datosMonedasSegundo !== undefined ? (
+      <CajaMoneda
+        key={numeroFila}
+        datos={{
+          fila: numeroFila,
+          monedasSegundo: datosMonedasSegundo.monedasSegundo,
+        }}
+      />
+    ) : null;
+
   return (
     <>
-      {/* Version escritorio */}
       <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(500px,1fr)] lg:grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,600px)]">
         <section className="flex items-center border-r border-b border-solid p-[8px] bg-principal">
           <img
@@ -229,11 +205,8 @@ export default function ContenedorPrincipal({
               addMonedasTotales((numeroFila + 1) * fuerzaArma);
             }}
           />
-          <CajaMoneda
-            datos={{
-              monedasSegundo: autoClickRef.current,
-            }}
-          />
+          {cajasMoneda}
+          
         </section>
         <section
           className={cn(
@@ -279,7 +252,7 @@ export default function ContenedorPrincipal({
           )}
         >
           <aside className="flex flex-row items-center justify-between mt-[-10px] lg:mt-2">
-            <h2 className="text-lg lg:text-xl ">
+            <h2 className="text-lg lg:text-xl">
               ¡Mejora la eficacia de tu ejercito en la tienda!
             </h2>
             <span className="text-sm bg-red-400 p-1 rounded-full mr-2 lg:hidden">

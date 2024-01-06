@@ -2,13 +2,17 @@ import { cn } from "@/lib/utils";
 import coin1 from "@/media/coin1.png";
 import { useMonedasTotales, useVerInfo } from "@/states/states";
 import {
-  useAutoClick,
   useFilaMejoras,
-  useFuerzaClick,
-  useNiveles,
-} from "@/states/statesComponentsUpgrade";
+  useFilaTienda,
+} from "@/states/statesComponents";
+import {
+  calcularPrecioMejoras,
+  calcularPrecioTienda,
+  preciosComponentes,
+} from "../../precios/preciosComponentes";
 
 type CajaMejorasParams = {
+  fila: number;
   nombre: string;
   nivel: number;
   coste: number;
@@ -17,24 +21,71 @@ type CajaMejorasParams = {
 };
 
 export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
-  const { nombre, nivel, coste, descripcion, accion } = datos;
-  const { fuerzaArma, setFuerzaArma } = useFuerzaClick();
-  const { autoClick, setAutoClick, addAutoClick } = useAutoClick();
+  const { fila, nombre, nivel, coste, descripcion, accion } = datos;
   const { verInfo, setVerInfo } = useVerInfo();
-  const { setfilaMejorasState } = useFilaMejoras();
-  const { addNvArma, addNvSoldado, addNvSargento, addNvCapitan} = useNiveles();
+  const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
+  const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
 
 
-  const handleClick = (nombre: string) => () => {
-    console.log("Valor de la fuerza: ", fuerzaArma);
-    accion();
-    console.log("Valor del autoclick: ", autoClick*100);
+  //Metodo de manejo del click
+  const handleClick = (fila: number, nombre: string) => () => {
+    console.log("Nombre: ", nombre);
+    console.log("Nº fila: ", fila);
+
+    //Comprobar que componente se ha pulsado, de la seccion mejoras
+    const cajasFilaM = filaMejorasState.get(fila) || [];
+    const nuevasCajasFilaM = cajasFilaM.map((caja) =>
+      caja.nombre === nombre
+        ? //Seteo de los parametros a cambiar
+          {
+            ...caja,
+            nivel: nivel + 1,
+            precio: calcularPrecioMejoras(
+              preciosComponentes.get(nombre) ?? 0,
+              nivel
+            ),
+            accion: () => {
+              caja.accion();
+            },
+          }
+        : caja
+    );
+    setfilaMejorasState(fila, nuevasCajasFilaM);
+
+    //Para ejecutar la accion de ese componente especifico, de la parte Mejoras
+    const componenteEspecificoM = nuevasCajasFilaM.find((caja) => caja.nombre === nombre);
+    if (componenteEspecificoM) {
+      componenteEspecificoM.accion();
+    }
+
+    //Comprobar que componente se ha pulsado, de la seccion tiendas
+    const cajasFilaT = filaTiendaState.get(fila) || [];
+    const nuevasCajasFilaT = cajasFilaT.map((caja) =>
+      caja.nombre === nombre
+        ? //Seteo de los parametros a cambiar
+          {
+            ...caja,
+            nivel: nivel + 1,
+            precio: calcularPrecioTienda(
+              preciosComponentes.get(nombre) ?? 0,
+              nivel
+            ),
+          }
+        : caja
+    );
+    setfilaTiendaState(fila, nuevasCajasFilaT);
+
+    //Para ejecutar la accion de ese componente especifico, de la parte Tienda
+    const componenteEspecificoT = nuevasCajasFilaT.find((caja) => caja.nombre === nombre);
+    if (componenteEspecificoT) {
+      componenteEspecificoT.accion();
+    }
   };
-  
+
   return (
     <div
-      className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario"
-      onClick={handleClick(nombre)}
+      className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario pl-2 pr-2"
+      onClick={handleClick(fila, nombre)}
     >
       <h1 className="font-semibold mt-1">{nombre}</h1>
       <section
@@ -57,7 +108,7 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
       <div
         className={cn(
           verInfo
-            ? "flex justify-center items-center bg-opacity-70 bg-black p-[10px] rounded-md text-white m-2 text-xs"
+            ? "flex justify-center items-center bg-opacity-70 bg-black p-[10px] rounded-md text-white m-2 text-xs w-full"
             : "hidden"
         )}
       >

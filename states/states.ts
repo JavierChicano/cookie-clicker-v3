@@ -58,3 +58,13 @@ export const useVerInfo = create<VerInfoObjetos>()((set) => ({
   setVerInfo: (ver: boolean) => set(() =>({verInfo: ver}))
 }));
 
+//Estado para la creacion del intervalo
+type VerIntervalo ={
+  verIntervalo: boolean;
+  setVerIntervalo: (by: boolean) => void;
+};
+
+export const useVerIntervalo = create<VerIntervalo>()((set) => ({
+  verIntervalo: false,
+  setVerIntervalo: (ver: boolean) => set(() =>({verIntervalo: ver}))
+}));

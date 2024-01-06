@@ -3,7 +3,7 @@ import zustand, { create } from "zustand";
 //Cajas de la seccion produccion de monedas
 type BoxMejora = {
   fila: number
-  nombre: 'Arma' | 'Soldado' | 'Sargento' | 'Capitán'
+  nombre: 'Arma' | 'Soldado' | 'Sargento' | 'Capitan'
   nivel: number
   precio: number
   descripcion: string
@@ -46,6 +46,33 @@ export const useFilaTienda = create<FilaTiendaType>((set, get) => ({
   },
 }))
 
+//Caja de la seccion monedas por segundo
+type MonedasSegundoType = {
+  monedasSegundoState: Map<number, { monedasSegundo: number }>
+  setMonedasSegundoState: (rowNumber: number, monedasSegundo: { monedasSegundo: number }) => void
+  addMonedasSegundo: (rowNumber: number, by: number) => void;
+}
+
+export const useMonedasSegundo = create<MonedasSegundoType>((set, get) => ({
+  monedasSegundoState: new Map<number, { monedasSegundo: number }>(),
+  setMonedasSegundoState: (rowNumber, monedasSegundo) => {
+    get().monedasSegundoState.set(rowNumber, monedasSegundo);
+    set({ monedasSegundoState: get().monedasSegundoState });
+  },
+  addMonedasSegundo: (rowNumber, by) => {
+    set((state) => {
+      const newState = new Map(state.monedasSegundoState);
+      const currentValue = newState.get(rowNumber);
+      
+      if (currentValue) {
+        newState.set(rowNumber, { monedasSegundo: currentValue.monedasSegundo + by });
+      }
+
+      return { monedasSegundoState: newState };
+    });
+  },
+}));
+
 
 //Crear el valor del click
 type FuerzaClick ={
@@ -72,27 +99,4 @@ export const useAutoClick = create<AutoClick>()((set) => ({
   addAutoClick: (by:number) => set((state) =>({autoClick: state.autoClick+by})),
 }))
 
-//Estado de los niveles
-type Niveles ={
-  nvArma: number;
-  nvSoldado: number;
-  nvSargento: number;
-  nvCapitan: number;
-  setNiveles: (by: number) => void;
-  addNvArma: (by: number) => void;
-  addNvSoldado: (by: number) => void;
-  addNvSargento: (by: number) => void;
-  addNvCapitan: (by: number) => void;
-}
 
-export const useNiveles = create<Niveles>()((set) => ({
-  nvArma: 1,
-  nvSoldado: 1,
-  nvSargento: 1,
-  nvCapitan: 1,
-  setNiveles: (valor: number) => set(() => ({ nvArma: valor, nvSoldado: valor, nvSargento: valor, nvCapitan: valor })),
-  addNvArma: (by: number) => set((state) => ({ nvArma: state.nvArma + by })),
-  addNvSoldado: (by: number) => set((state) => ({ nvSoldado: state.nvSoldado + by })),
-  addNvSargento: (by: number) => set((state) => ({ nvSargento: state.nvSargento + by })),
-  addNvCapitan: (by: number) => set((state) => ({ nvCapitan: state.nvCapitan + by })),
-}));
