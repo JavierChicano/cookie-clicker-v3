@@ -1,15 +1,17 @@
 import { cn } from "@/lib/utils";
 import coin1 from "@/media/coin1.png";
-import { useMonedasTotales, useVerInfo } from "@/states/states";
 import {
-  useFilaMejoras,
-  useFilaTienda,
-} from "@/states/statesComponents";
+  useMonedasTotales,
+  useTipoNotacion,
+  useVerInfo,
+} from "@/states/states";
+import { useFilaMejoras, useFilaTienda } from "@/states/statesComponents";
 import {
   calcularPrecioMejoras,
   calcularPrecioTienda,
   preciosComponentes,
 } from "../../precios/preciosComponentes";
+import { formatoCifra, notacionCientifica } from "@/precios/gestionUnidades";
 
 type CajaMejorasParams = {
   fila: number;
@@ -25,7 +27,7 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { verInfo, setVerInfo } = useVerInfo();
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
   const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
-
+  const { tipoNotacion, setTipoNotacion } = useTipoNotacion();
 
   //Metodo de manejo del click
   const handleClick = (fila: number, nombre: string) => () => {
@@ -53,7 +55,9 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
     setfilaMejorasState(fila, nuevasCajasFilaM);
 
     //Para ejecutar la accion de ese componente especifico, de la parte Mejoras
-    const componenteEspecificoM = nuevasCajasFilaM.find((caja) => caja.nombre === nombre);
+    const componenteEspecificoM = nuevasCajasFilaM.find(
+      (caja) => caja.nombre === nombre
+    );
     if (componenteEspecificoM) {
       componenteEspecificoM.accion();
     }
@@ -76,12 +80,16 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
     setfilaTiendaState(fila, nuevasCajasFilaT);
 
     //Para ejecutar la accion de ese componente especifico, de la parte Tienda
-    const componenteEspecificoT = nuevasCajasFilaT.find((caja) => caja.nombre === nombre);
+    const componenteEspecificoT = nuevasCajasFilaT.find(
+      (caja) => caja.nombre === nombre
+    );
     if (componenteEspecificoT) {
       componenteEspecificoT.accion();
     }
   };
-
+  const mostrarMonedas = tipoNotacion
+    ? formatoCifra(Math.trunc(coste))
+    : notacionCientifica(Math.trunc(coste));
   return (
     <div
       className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario pl-2 pr-2"
@@ -102,7 +110,7 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
             className="monedaPrecio w-5"
             alt={"moneda"}
           ></img>
-          <span className="mt-[-2px]">{coste}</span>
+          <span className="mt-[-2px]">{mostrarMonedas}</span>
         </div>
       </section>
       <div

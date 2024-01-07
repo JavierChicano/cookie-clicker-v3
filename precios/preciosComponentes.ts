@@ -4,14 +4,14 @@ export const preciosComponentes: Map<string, number> = new Map([
     ["Arma", 10],
     ["Soldado", 15],
     ["Sargento", 20],
-    ["Capitan", 35],
+    ["Capitan", 450],
     ["PowerUps", 10],
     ["Talentos", 15],
     ["Reliquias", 20],
   ]);
 
 //Calcular Precio componentes mejoras
-const factorIncrementoMejoras = 0.3;
+const factorIncrementoMejoras = 1.2;
 
 export function calcularPrecioMejoras(precioBase: number, vecesComprado: number): number {
     const precioCalculado = precioBase * Math.pow((1 + factorIncrementoMejoras), vecesComprado);
@@ -27,3 +27,9 @@ export function calcularPrecioTienda(precioBase: number, vecesComprado: number):
 }
 
 //Hacer la del coste del candado
+const factorIncrementoCandado = 5;
+
+export function calcularPrecioCandado(precioBase: number, vecesComprado: number): number {
+    const precioCalculado = precioBase * Math.pow((1 + factorIncrementoCandado), vecesComprado);
+    return Math.floor(precioCalculado);
+}

@@ -17,7 +17,7 @@ type CosteCandadoType = {
   setCosteCandado: (by:number) => void;
 }
 export const useCosteCandado = create<CosteCandadoType>()((set) => ({
-  costeCandado: 10,
+  costeCandado: 100,
   setCosteCandado: (precio: number) => set(() =>({costeCandado: precio})),
 }));
 
@@ -67,4 +67,15 @@ type VerIntervalo ={
 export const useVerIntervalo = create<VerIntervalo>()((set) => ({
   verIntervalo: false,
   setVerIntervalo: (ver: boolean) => set(() =>({verIntervalo: ver}))
+}));
+
+//Estado para alternar el tipo de notacion de la monedas
+type TipoNotacion ={
+  tipoNotacion: boolean;
+  setTipoNotacion: (by: boolean) => void;
+};
+
+export const useTipoNotacion = create<TipoNotacion>()((set) => ({
+  tipoNotacion: false,
+  setTipoNotacion: (activar: boolean) => set(() =>({tipoNotacion: activar}))
 }));

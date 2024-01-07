@@ -4,6 +4,7 @@ import { useContenedorPrincipal } from "@/states/states";
 import { useCosteCandado } from "@/states/states";
 import candado from "@/media/candado.png";
 import coin1 from "@/media/coin1.png";
+import { calcularPrecioCandado } from "@/precios/preciosComponentes";
 
 export default function Home() {
   const { numRows, setNumRows } = useContenedorPrincipal();
@@ -26,7 +27,9 @@ export default function Home() {
           className="h-[80px]"
           onClick={() => {
             setNumRows(numRows + 1);
-            setCosteCandado(costeCandado * 2);
+            console.log(costeCandado)
+            console.log(numRows)
+            setCosteCandado(calcularPrecioCandado(costeCandado, (numRows+1)));
           }}
         ></img>
         <section className="mt-[-8px] flex flex-row justify-center">

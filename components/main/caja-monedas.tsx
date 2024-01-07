@@ -26,7 +26,7 @@ export default function CajaMoneda({ datos }: { datos: CajaMonedasParams }) {
       <article className={cn(!verInfo ? "hidden" : "block m-2 text-xs")}>El valor de la moneda en este nivel es de {fila+1}</article>
       <div className={cn(!verInfo ? "flex flex-col items-center justify-center" : "hidden" )}>
         <p className="text-lg mt-[-5px]">Monedas/s:</p>
-        <p>{monedasSegundo}</p>
+        <p>{monedasSegundo*(fila+1)}</p>
         <p>Tier: {tier}</p>
       </div>
     </article>

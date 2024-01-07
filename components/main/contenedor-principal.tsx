@@ -3,7 +3,11 @@ import CajaMoneda from "@/components/main/caja-monedas";
 import useWindowSize from "../movil/gestorPantallaWidth";
 import arrow from "@/media/arrow.png";
 
-import { useMonedasTotales, useMonedasTotalesSegundo } from "@/states/states";
+import {
+  useMonedasTotales,
+  useMonedasTotalesSegundo,
+  useTipoNotacion,
+} from "@/states/states";
 import {
   useAutoClick,
   useFilaMejoras,
@@ -68,7 +72,7 @@ export default function ContenedorPrincipal({
           numeroFila + 1
         }`,
         accion: () => {
-          addAutoClick(1);
+          addAutoClick(numeroFila + 1);
           addMonedasSegundo(numeroFila, 1);
         },
       },
@@ -81,7 +85,7 @@ export default function ContenedorPrincipal({
           (numeroFila + 1) * 3
         }`,
         accion: () => {
-          addAutoClick(3);
+          addAutoClick(3 * (numeroFila + 1));
           addMonedasSegundo(numeroFila, 3);
         },
       },
@@ -94,7 +98,7 @@ export default function ContenedorPrincipal({
           (numeroFila + 1) * 5
         }`,
         accion: () => {
-          addAutoClick(5);
+          addAutoClick(5 * (numeroFila + 1));
           addMonedasSegundo(numeroFila, 5);
         },
       },
@@ -148,9 +152,10 @@ export default function ContenedorPrincipal({
 
   const datosDeLaFila = filaMejorasState.get(numeroFila);
   const cajasMejora = datosDeLaFila
-    ? datosDeLaFila.map((box, index) => (
+  ? datosDeLaFila.map((box, index) => {
+      return (
         <CajaMejora
-          key={index} // Clave única
+          key={index}
           datos={{
             fila: box.fila,
             nombre: box.nombre,
@@ -160,8 +165,10 @@ export default function ContenedorPrincipal({
             accion: box.accion,
           }}
         />
-      ))
-    : null;
+      );
+    })
+  : null;
+
 
   const datosDeLaTienda = filaTiendaState.get(numeroFila);
   const cajasTienda = datosDeLaTienda
@@ -206,7 +213,6 @@ export default function ContenedorPrincipal({
             }}
           />
           {cajasMoneda}
-          
         </section>
         <section
           className={cn(
