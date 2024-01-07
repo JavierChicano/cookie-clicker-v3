@@ -57,17 +57,17 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Arma",
         nivel: 1,
-        precio: preciosComponentes.get("Arma") ?? 0,
+        precio: (preciosComponentes.get("Arma") ?? 0)*((numeroFila+1)*9),
         descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
         accion: () => {
-          addFuerzaArma(1);
+          addFuerzaArma((numeroFila+1));
         },
       },
       {
         fila: numeroFila,
         nombre: "Soldado",
         nivel: 1,
-        precio: preciosComponentes.get("Soldado") ?? 0,
+        precio: (preciosComponentes.get("Soldado") ?? 0)*((numeroFila+1)*9),
         descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           numeroFila + 1
         }`,
@@ -80,7 +80,7 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Sargento",
         nivel: 1,
-        precio: preciosComponentes.get("Sargento") ?? 0,
+        precio: (preciosComponentes.get("Sargento") ?? 0)*((numeroFila+1)*9),
         descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           (numeroFila + 1) * 3
         }`,
@@ -93,7 +93,7 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Capitan",
         nivel: 1,
-        precio: preciosComponentes.get("Capitan") ?? 0,
+        precio: (preciosComponentes.get("Capitan") ?? 0)*((numeroFila+1)*9),
         descripcion: `Aumenta la producción de monedas/s de este nivel en ${
           (numeroFila + 1) * 5
         }`,

@@ -76,6 +76,6 @@ type TipoNotacion ={
 };
 
 export const useTipoNotacion = create<TipoNotacion>()((set) => ({
-  tipoNotacion: false,
+  tipoNotacion: true,
   setTipoNotacion: (activar: boolean) => set(() =>({tipoNotacion: activar}))
 }));

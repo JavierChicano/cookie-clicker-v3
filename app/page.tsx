@@ -1,18 +1,23 @@
 "use client";
 import ContenedorPrincipal from "@/components/main/contenedor-principal";
-import { useContenedorPrincipal } from "@/states/states";
+import { useContenedorPrincipal, useTipoNotacion } from "@/states/states";
 import { useCosteCandado } from "@/states/states";
 import candado from "@/media/candado.png";
 import coin1 from "@/media/coin1.png";
 import { calcularPrecioCandado } from "@/precios/preciosComponentes";
+import { formatoCifra, notacionCientifica } from "@/precios/gestionUnidades";
 
 export default function Home() {
   const { numRows, setNumRows } = useContenedorPrincipal();
   const { costeCandado, setCosteCandado } = useCosteCandado();
+  const { tipoNotacion } = useTipoNotacion();
   const contenedorArray: JSX.Element[] = [];
   for (let i = 0; i < numRows; i++) {
     contenedorArray.push(<ContenedorPrincipal key={i} numeroFila={i} />);
   }
+  const mostrarMonedas = tipoNotacion
+    ? formatoCifra(Math.trunc(costeCandado))
+    : notacionCientifica(Math.trunc(costeCandado));
   return (
     //Hay que llamar a la funcion onclick dentro del componenete cajaCandado
     //fuentes de letras
@@ -34,7 +39,7 @@ export default function Home() {
         ></img>
         <section className="mt-[-8px] flex flex-row justify-center">
           <img src={coin1.src} alt="moneda" className="h-8"></img>
-          <span className="mt-[4px] text-white">{costeCandado}</span>
+          <span className="mt-[4px] text-white">{mostrarMonedas}</span>
         </section>
       </div>
     </main>

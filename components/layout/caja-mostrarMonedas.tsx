@@ -1,7 +1,7 @@
 "use client";
 import { formatoCifra, notacionCientifica } from "@/precios/gestionUnidades";
 import { useMonedasTotales, useTipoNotacion } from "@/states/states";
-import { useAutoClick } from "@/states/statesComponents";
+import { useAutoClick, useMonedasSegundo } from "@/states/statesComponents";
 import { useEffect, useRef } from "react";
 
 export default function CajaMostrarMonedas() {
@@ -13,34 +13,47 @@ export default function CajaMostrarMonedas() {
     subtractMonedasTotales,
   } = useMonedasTotales();
   const { tipoNotacion, setTipoNotacion } = useTipoNotacion();
- //Parte del autoclick (monedas automaticas)
- const autoClickRef = useRef(autoClick);
+  const { monedasSegundoState } = useMonedasSegundo();
 
- useEffect(() => {
-   autoClickRef.current = autoClick;
- }, [autoClick]);
+  //Parte del autoclick (monedas automaticas)
+  const autoClickRef = useRef(autoClick);
 
- useEffect(() => {
-   const accionIntervalo = () => {
-    const valor = autoClickRef.current / 100;
-     addMonedasTotales(valor);
-     console.log("autoclick de la acción: ", autoClickRef.current);
-   };
+  useEffect(() => {
+    autoClickRef.current = autoClick;
+  }, [autoClick]);
 
-   const intervalo = setInterval(accionIntervalo, 10);
+  useEffect(() => {
+    const accionIntervalo = () => {
+      const valor = autoClickRef.current / 100;
+      addMonedasTotales(valor);
+      console.log("autoclick de la acción: ", autoClickRef.current);
+    };
 
-   return () => {
-     clearInterval(intervalo); // Limpiar el intervalo al desmontar el componente
-   };
- }, []);
- const mostrarMonedas = tipoNotacion ? formatoCifra(Math.trunc(monedasTotales)) : notacionCientifica(Math.trunc(monedasTotales));
+    const intervalo = setInterval(accionIntervalo, 10);
+
+    return () => {
+      clearInterval(intervalo); // Limpiar el intervalo al desmontar el componente
+    };
+  }, []);
+  const sumaMonedasSegundo = Array.from(monedasSegundoState.entries()).reduce(
+    (suma, [rowNumber, data]) => suma + data.monedasSegundo * (rowNumber + 1),
+    0
+  );
+
+  const mostrarMonedas = tipoNotacion
+    ? formatoCifra(Math.trunc(monedasTotales))
+    : notacionCientifica(Math.trunc(monedasTotales));
+
+  const mostrarMonedasSegundo = tipoNotacion
+    ? formatoCifra(Math.trunc(sumaMonedasSegundo))
+    : notacionCientifica(Math.trunc(sumaMonedasSegundo));
 
   return (
-    <li className=" flex flex-4 flex-row bg-seleccion rounded-tr-lg text-lg items-center">
+    <li className=" flex flex-[4] flex-row bg-seleccion rounded-tr-lg text-lg items-center">
       <span className="ml-6 mr-2">Monedas:</span>
       <span className="w-16">{mostrarMonedas}</span>
       <span className="ml-6 mr-2">Monedas/s: </span>
-      <span className="w-20 flex ml-1"></span>
+      <span className="w-20 flex ml-1">{mostrarMonedasSegundo}</span>
     </li>
   );
 }

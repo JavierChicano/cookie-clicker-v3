@@ -27,7 +27,7 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { verInfo, setVerInfo } = useVerInfo();
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
   const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
-  const { tipoNotacion, setTipoNotacion } = useTipoNotacion();
+  const { tipoNotacion } = useTipoNotacion();
 
   //Metodo de manejo del click
   const handleClick = (fila: number, nombre: string) => () => {
@@ -43,7 +43,7 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
             ...caja,
             nivel: nivel + 1,
             precio: calcularPrecioMejoras(
-              preciosComponentes.get(nombre) ?? 0,
+              coste,
               nivel
             ),
             accion: () => {

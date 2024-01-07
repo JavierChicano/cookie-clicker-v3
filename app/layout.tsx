@@ -59,8 +59,8 @@ export default function RootLayout({
               Conviertete en millonario!
             </h1>
           </section>
-          <section className="flex flex-row items-center mr-10 rounded-full bg-terciario justify-center sm:w-20 sm:h-10 md:w-[200px] h-full">
-            <h1 className="md:text-3xl sm:text-sm">Prestigio!</h1>
+          <section className="flex flex-row items-center mr-10 rounded-full bg-terciario justify-center sm:w-20 sm:h-10 w-[100px] lg:w-[200px] h-full">
+            <h1 className="lg:text-3xl text-sm">Prestigio!</h1>
           </section>
         </header>
         {children}
