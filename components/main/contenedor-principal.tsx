@@ -57,20 +57,19 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Arma",
         nivel: 1,
-        precio: (preciosComponentes.get("Arma") ?? 0)*((numeroFila+1)*9),
+        precio: (preciosComponentes.get("Arma") ?? 0) * ((numeroFila + 1) * 9),
         descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
         accion: () => {
-          addFuerzaArma((numeroFila+1));
+          addFuerzaArma(numeroFila + 1);
         },
       },
       {
         fila: numeroFila,
         nombre: "Soldado",
         nivel: 1,
-        precio: (preciosComponentes.get("Soldado") ?? 0)*((numeroFila+1)*9),
-        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
-          numeroFila + 1
-        }`,
+        precio:
+          (preciosComponentes.get("Soldado") ?? 0) * ((numeroFila + 1) * 9),
+        descripcion: `Aumenta ${numeroFila + 1} monedas/s`,
         accion: () => {
           addAutoClick(numeroFila + 1);
           addMonedasSegundo(numeroFila, 1);
@@ -80,10 +79,9 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Sargento",
         nivel: 1,
-        precio: (preciosComponentes.get("Sargento") ?? 0)*((numeroFila+1)*9),
-        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
-          (numeroFila + 1) * 3
-        }`,
+        precio:
+          (preciosComponentes.get("Sargento") ?? 0) * ((numeroFila + 1) * 9),
+        descripcion: `Aumenta ${(numeroFila + 1) * 3} monedas/s`,
         accion: () => {
           addAutoClick(3 * (numeroFila + 1));
           addMonedasSegundo(numeroFila, 3);
@@ -93,10 +91,9 @@ export default function ContenedorPrincipal({
         fila: numeroFila,
         nombre: "Capitan",
         nivel: 1,
-        precio: (preciosComponentes.get("Capitan") ?? 0)*((numeroFila+1)*9),
-        descripcion: `Aumenta la producción de monedas/s de este nivel en ${
-          (numeroFila + 1) * 5
-        }`,
+        precio:
+          (preciosComponentes.get("Capitan") ?? 0) * ((numeroFila + 1) * 9),
+        descripcion: `Aumenta ${(numeroFila + 1) * 5} monedas/s`,
         accion: () => {
           addAutoClick(5 * (numeroFila + 1));
           addMonedasSegundo(numeroFila, 5);
@@ -152,23 +149,22 @@ export default function ContenedorPrincipal({
 
   const datosDeLaFila = filaMejorasState.get(numeroFila);
   const cajasMejora = datosDeLaFila
-  ? datosDeLaFila.map((box, index) => {
-      return (
-        <CajaMejora
-          key={index}
-          datos={{
-            fila: box.fila,
-            nombre: box.nombre,
-            nivel: box.nivel,
-            coste: box.precio,
-            descripcion: box.descripcion,
-            accion: box.accion,
-          }}
-        />
-      );
-    })
-  : null;
-
+    ? datosDeLaFila.map((box, index) => {
+        return (
+          <CajaMejora
+            key={index}
+            datos={{
+              fila: box.fila,
+              nombre: box.nombre,
+              nivel: box.nivel,
+              coste: box.precio,
+              descripcion: box.descripcion,
+              accion: box.accion,
+            }}
+          />
+        );
+      })
+    : null;
 
   const datosDeLaTienda = filaTiendaState.get(numeroFila);
   const cajasTienda = datosDeLaTienda
@@ -225,7 +221,7 @@ export default function ContenedorPrincipal({
                 )
           )}
         >
-          <aside className="flex flex-row items-center justify-between mt-[-10px]">
+          <aside className="flex flex-row items-center justify-between mt-[-10px] ">
             <h2 className="text-xl">¡Mejora la producción de monedas!</h2>
             <span className="text-sm bg-red-400 p-1 rounded-full mr-2">
               Nivel: {numeroFila + 1}
