@@ -26,7 +26,6 @@ export default function CajaMostrarMonedas() {
     const accionIntervalo = () => {
       const valor = autoClickRef.current / 100;
       addMonedasTotales(valor);
-      console.log("autoclick de la acción: ", autoClickRef.current);
     };
 
     const intervalo = setInterval(accionIntervalo, 10);
