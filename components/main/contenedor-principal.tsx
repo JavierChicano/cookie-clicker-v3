@@ -56,7 +56,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Arma",
-        nivel: 1,
+        nivel: 0,
         precio: (preciosComponentes.get("Arma") ?? 0) * ((numeroFila + 1) * 9),
         descripcion: `Aumenta el valor del click + ${numeroFila + 1}`,
         accion: () => {
@@ -66,7 +66,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Soldado",
-        nivel: 1,
+        nivel: 0,
         precio:
           (preciosComponentes.get("Soldado") ?? 0) * ((numeroFila + 1) * 9),
         descripcion: `Aumenta ${numeroFila + 1} monedas/s`,
@@ -78,7 +78,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Sargento",
-        nivel: 1,
+        nivel: 0,
         precio:
           (preciosComponentes.get("Sargento") ?? 0) * ((numeroFila + 1) * 9),
         descripcion: `Aumenta ${(numeroFila + 1) * 3} monedas/s`,
@@ -90,7 +90,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Capitan",
-        nivel: 1,
+        nivel: 0,
         precio:
           (preciosComponentes.get("Capitan") ?? 0) * ((numeroFila + 1) * 9),
         descripcion: `Aumenta ${(numeroFila + 1) * 5} monedas/s`,
@@ -115,7 +115,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "PowerUps",
-        nivel: 1,
+        nivel: 0,
         precio: preciosComponentes.get("PowerUps") ?? 0,
         descripcion: `Añade un boost que hace a las tropas mas eficientes`,
         accion: () => {},
@@ -123,7 +123,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Talentos",
-        nivel: 1,
+        nivel: 0,
         precio: preciosComponentes.get("Talentos") ?? 0,
         descripcion: `Desbloquea habilidades unicas de cada objeto`,
 
@@ -132,7 +132,7 @@ export default function ContenedorPrincipal({
       {
         fila: numeroFila,
         nombre: "Reliquias",
-        nivel: 1,
+        nivel: 0,
         precio: preciosComponentes.get("Reliquias") ?? 0,
         descripcion: `Implementa pasivas unicas en cada nivel`,
         accion: () => {},
@@ -196,8 +196,7 @@ export default function ContenedorPrincipal({
     ) : null;
 
   return (
-    <>
-      <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(500px,1fr)] lg:grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,600px)]">
+      <div className="grid grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(500px,1fr)] lg:grid-cols-[minmax(300px,300px)_minmax(500px,1fr)_minmax(550px,600px)] snap-start">
         <section className="flex items-center border-r border-b border-solid p-[8px] bg-principal">
           <img
             src={coinImage.src}
@@ -228,7 +227,7 @@ export default function ContenedorPrincipal({
             </span>
           </aside>
 
-          <aside className="flex flex-wrap mt-[-2px]">
+          <aside className="flex flex-row mt-[-2px]">
             {cajasMejora}
             <span className="flex justify-center items-center lg:hidden">
               <img
@@ -276,6 +275,5 @@ export default function ContenedorPrincipal({
           </aside>
         </section>
       </div>
-    </>
   );
 }

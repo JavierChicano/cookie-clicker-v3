@@ -23,7 +23,7 @@ export default function Home() {
     //fuentes de letras
     //Empezar con el estdo del contador de monedas (y tmb pasarselo al layout)
 
-    <main className="flex flex-col gap-y-10 mb-10 text-black">
+    <main className="flex flex-col gap-y-10 text-black snap-y overflow-y-scroll snap-mandatory">
       {contenedorArray}
 
       <div className="flex flex-col justify-center rounded-r-lg text-center items-center bg-principalOscurecido mr-[100px] lg:m-0">
