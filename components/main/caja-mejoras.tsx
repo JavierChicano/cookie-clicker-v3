@@ -28,37 +28,48 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const { filaMejorasState, setfilaMejorasState } = useFilaMejoras();
   const { filaTiendaState, setfilaTiendaState } = useFilaTienda();
   const { tipoNotacion } = useTipoNotacion();
+  const {
+    monedasTotales,
+    setMonedasTotales,
+    addMonedasTotales,
+    subtractMonedasTotales,
+  } = useMonedasTotales();
 
   //Metodo de manejo del click
   const handleClick = (fila: number, nombre: string) => () => {
     console.log("Nombre: ", nombre);
     console.log("Nº fila: ", fila);
+    let comprobacion = false
 
     //Comprobar que componente se ha pulsado, de la seccion mejoras
     const cajasFilaM = filaMejorasState.get(fila) || [];
-    const nuevasCajasFilaM = cajasFilaM.map((caja) =>
-      caja.nombre === nombre
-        ? //Seteo de los parametros a cambiar
-          {
+    const nuevasCajasFilaM = cajasFilaM.map((caja) => {
+      if (caja.nombre === nombre) {
+        if (comprobarCoste(caja.precio)) {
+          comprobacion = true
+          return {
             ...caja,
-            nivel: nivel + 1,
-            precio: calcularPrecioMejoras(
-              coste,
-              nivel
-            ),
+            nivel: caja.nivel + 1, 
+            precio: calcularPrecioMejoras(coste, caja.nivel),
             accion: () => {
               caja.accion();
             },
-          }
-        : caja
-    );
+          };
+        } else {
+          return caja; // Devuelve la caja original si comprobarCoste devuelve false
+        }
+      } else {
+        return caja; // Devuelve la caja original si el nombre no coincide
+      }
+    });
+
     setfilaMejorasState(fila, nuevasCajasFilaM);
 
     //Para ejecutar la accion de ese componente especifico, de la parte Mejoras
     const componenteEspecificoM = nuevasCajasFilaM.find(
       (caja) => caja.nombre === nombre
     );
-    if (componenteEspecificoM) {
+    if (componenteEspecificoM && comprobacion) {
       componenteEspecificoM.accion();
     }
 
@@ -90,6 +101,16 @@ export default function CajaMejora({ datos }: { datos: CajaMejorasParams }) {
   const mostrarMonedas = tipoNotacion
     ? formatoCifra(Math.trunc(coste))
     : notacionCientifica(Math.trunc(coste));
+
+  const comprobarCoste = (coste: number) => {
+    if(coste <= monedasTotales){
+      subtractMonedasTotales(coste)
+      return true
+    }else{
+      return false
+    }
+  };
+
   return (
     <div
       className="relative flex flex-1 flex-col items-center justify-center mr-[10px] mt-[10px] rounded-lg cursor-pointer active:scale-125 bg-secundario pl-2 pr-2"
